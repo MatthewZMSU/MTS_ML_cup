@@ -36,10 +36,16 @@ def get_rating(website_text: BeautifulSoup) -> list:
 
 def create_pq_file(name: str, data: list) -> None:
     df = pd.DataFrame(data, columns=["region_name", "rating"])
-    print(df)
     fpq.write(name, df)
 
 
-html_text = get_html(URL)
-rating = get_rating(BeautifulSoup(html_text, 'lxml'))
-create_pq_file("region_rating.pq", rating)
+if __name__ == "__main__":
+    answer = input('''What do you want?\n
+                    1 - to parse region ratings''')
+    if answer.strip('\n') == "1":
+        html_text = get_html(URL)
+        rating = get_rating(BeautifulSoup(html_text, 'lxml'))
+        create_pq_file("region_rating.pqt", rating)
+    else:
+        sys.exit("Did not understand your request!")
+
