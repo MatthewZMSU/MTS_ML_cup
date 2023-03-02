@@ -34,18 +34,29 @@ def get_rating(website_text: BeautifulSoup) -> list:
     return ratings
 
 
+# TODO:
+# 0.) I don't need FederalDistricts.csv
+# 1.) Divide Oktmo.csv into ~87 files.pqt by regions
+# 2.) Use 2 files: Oktmo.csv and SettlementTypes.csv
+# 3.) Make some settlements equal!
 def create_pq_file(name: str, data: list) -> None:
     df = pd.DataFrame(data, columns=["region_name", "rating"])
     fpq.write(name, df)
 
 
+def some_func():
+    pass
+
+
 if __name__ == "__main__":
     answer = input('''What do you want?\n
-                    1 - to parse region ratings''')
+                    1 - to parse region ratings\n
+                    2 - to parse settlement types''')
     if answer.strip('\n') == "1":
         html_text = get_html(URL)
         rating = get_rating(BeautifulSoup(html_text, 'lxml'))
         create_pq_file("region_rating.pqt", rating)
+    elif answer.strip('\n') == "2":
+        pass
     else:
         sys.exit("Did not understand your request!")
-
